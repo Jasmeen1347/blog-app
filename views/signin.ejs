@@ -2,37 +2,164 @@
 <html lang="en">
   <head>
     <%- include('./partials/head') %>
-    <title>Signin</title>
+    <title>Sign In - Blogify</title>
   </head>
 
   <body>
     <%- include('./partials/nav') %>
 
-    <div class="container mt-4">
-      <form action="signin" method="post">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label" name="fullname"
-            >Email address</label
-          >
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            name="email"
-            aria-describedby="emailHelp" />
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            type="password"
-            name="password"
-            class="form-control"
-            id="exampleInputPassword1" />
-        </div>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+          <div class="content-wrapper p-5">
+            <div class="text-center mb-5">
+              <div
+                class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+                style="width: 80px; height: 80px">
+                <i class="bi bi-person-check display-6 text-primary"></i>
+              </div>
+              <h2 class="fw-bold text-dark mb-2">Welcome Back!</h2>
+              <p class="text-muted">
+                Sign in to continue your storytelling journey
+              </p>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+            <form
+              action="signin"
+              method="post"
+              class="needs-validation"
+              novalidate>
+              <div class="mb-4">
+                <label for="email" class="form-label fw-semibold text-dark">
+                  <i class="bi bi-envelope me-2"></i>Email Address
+                </label>
+                <input
+                  type="email"
+                  class="form-control form-control-lg"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email address"
+                  required />
+                <div class="invalid-feedback">
+                  Please provide a valid email address.
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="password" class="form-label fw-semibold text-dark">
+                  <i class="bi bi-lock me-2"></i>Password
+                </label>
+                <div class="position-relative">
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control form-control-lg"
+                    id="password"
+                    placeholder="Enter your password"
+                    required />
+                  <button
+                    type="button"
+                    class="btn btn-link position-absolute end-0 top-50 translate-middle-y text-muted"
+                    onclick="togglePassword()"
+                    style="border: none; background: none">
+                    <i class="bi bi-eye" id="toggleIcon"></i>
+                  </button>
+                </div>
+                <div class="invalid-feedback">
+                  Please provide your password.
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="rememberMe" />
+                  <label class="form-check-label text-muted" for="rememberMe">
+                    Remember me for 30 days
+                  </label>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg w-100 mb-4">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+              </button>
+
+              <div class="text-center">
+                <p class="text-muted mb-0">
+                  Don't have an account?
+                  <a
+                    href="/user/signup"
+                    class="text-decoration-none fw-semibold"
+                    >Create one here</a
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Decorative Elements -->
+    <div
+      class="position-fixed"
+      style="top: 20%; left: -5%; z-index: -1; opacity: 0.1">
+      <i class="bi bi-chat-dots display-1 text-primary"></i>
+    </div>
+    <div
+      class="position-fixed"
+      style="bottom: 20%; right: -5%; z-index: -1; opacity: 0.1">
+      <i class="bi bi-pencil-square display-1 text-primary"></i>
+    </div>
+
     <%- include('./partials/scripts') %>
+
+    <script>
+      // Form validation
+      (function () {
+        "use strict";
+        window.addEventListener(
+          "load",
+          function () {
+            var forms = document.getElementsByClassName("needs-validation");
+            var validation = Array.prototype.filter.call(
+              forms,
+              function (form) {
+                form.addEventListener(
+                  "submit",
+                  function (event) {
+                    if (form.checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                    form.classList.add("was-validated");
+                  },
+                  false
+                );
+              }
+            );
+          },
+          false
+        );
+      })();
+
+      // Toggle password visibility
+      function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const toggleIcon = document.getElementById("toggleIcon");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleIcon.classList.remove("bi-eye");
+          toggleIcon.classList.add("bi-eye-slash");
+        } else {
+          passwordInput.type = "password";
+          toggleIcon.classList.remove("bi-eye-slash");
+          toggleIcon.classList.add("bi-eye");
+        }
+      }
+    </script>
   </body>
 </html>

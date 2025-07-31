@@ -22,7 +22,9 @@ app.use(checkforAuthenticationCookie("token"));
 app.use(express.static(path.resolve("./public")));
 
 app.get("/", async (req, res) => {
-  const blogs = await Blog.find({}).sort({ createdAt: -1 });
+  const blogs = await Blog.find({})
+    .populate("createdBy")
+    .sort({ createdAt: -1 });
   res.render("home", { user: req.user, blogs });
 });
 app.use("/user", userRoute);
